@@ -10,7 +10,7 @@ const RecipeDetail = () => {
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://backend-1-yaoz.onrender.com/recipes/${id}`)
+    axios.get(`https://backend-1-yaoz.onrender.com/api/recipes/${id}`)
       .then(response => {
         setRecipe(response.data); // Set recipe data from backend
       })
