@@ -13,7 +13,7 @@ const Register = () => {
 
     // Mock registration (Replace with actual API call)
     if (name && email && password) {
-      axios.post("https://backend-1-yaoz.onrender.com/register", { name, email, password })
+      axios.post("https://backend-1-yaoz.onrender.com/api/auth/register", { name, email, password })
         .then(response => {
           console.log("Registration successful:", response.data);
           navigate("/profile"); // ✅ Redirect to Profile Page
