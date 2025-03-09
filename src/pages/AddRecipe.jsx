@@ -35,7 +35,7 @@ const AddRecipe = () => {
     };
 
     // Send a POST request to the server
-    axios.post('https://backend-1-yaoz.onrender.com/recipes', formattedRecipe)
+    axios.post('https://backend-1-yaoz.onrender.com/api/recipes', formattedRecipe)
       .then(response => {
         alert("Recipe added successfully!");
         // Redirect to the newly added recipe’s detail page
