@@ -13,7 +13,7 @@ const Login = () => {
 
     
     if (email && password) {
-      axios.post("https://backend-1-yaoz.onrender.com/login", { email, password })
+      axios.post("https://backend-1-yaoz.onrender.com/api/auth/login", { email, password })
         .then(response => {
           console.log("Login successful:", response.data);
           navigate("/profile"); // ✅ Redirect to Profile Page
