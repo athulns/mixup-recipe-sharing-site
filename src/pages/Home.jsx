@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getRecipes } from "../data/recipes";
+import axios from "axios"; // Import Axios
+
 import RecipeCard from "../components/RecipeCard";
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    setRecipes(getRecipes(false)); // Load from localStorage
+    axios.get('https://backend-1-yaoz.onrender.com/recipes')
+      .then(response => {
+        setRecipes(response.data); // Load recipes from backend
+      })
+      .catch(error => {
+        console.error("Error fetching recipes:", error);
+      });
+
   }, []);
 
   return (

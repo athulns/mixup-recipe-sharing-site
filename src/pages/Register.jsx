@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Ensure axios is imported
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,8 +13,15 @@ const Register = () => {
 
     // Mock registration (Replace with actual API call)
     if (name && email && password) {
-      console.log("User registered:", { name, email, password });
-      navigate("/profile"); // ✅ Redirect to Profile Page
+      axios.post("https://backend-1-yaoz.onrender.com/register", { name, email, password })
+        .then(response => {
+          console.log("Registration successful:", response.data);
+          navigate("/profile"); // ✅ Redirect to Profile Page
+        })
+        .catch(error => {
+          console.error("Registration failed:", error);
+          alert("Registration failed. Please try again.");
+        });
     } else {
       alert("Please fill in all fields.");
     }
@@ -53,7 +61,7 @@ const Register = () => {
             required 
           />
         </div>
-        <button type="submit" className="btn btn-success w-100">Register</button>
+        <button type="submit" className="btn btn-yellow w-100">Register</button>
       </form>
     </div>
   );

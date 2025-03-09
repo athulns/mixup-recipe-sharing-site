@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getRecipes } from "../data/recipes";
+import axios from "axios"; // Import Axios
+
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -9,12 +10,14 @@ const RecipeDetail = () => {
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    const allRecipes = getRecipes();
-    setRecipes(allRecipes);
+    axios.get(`https://backend-1-yaoz.onrender.com/recipes/${id}`)
+      .then(response => {
+        setRecipe(response.data); // Set recipe data from backend
+      })
+      .catch(error => {
+        console.error("Error fetching recipe:", error);
+      });
 
-    // Convert ID to number (if applicable) and find the current recipe
-    const selectedRecipe = allRecipes.find((r) => r.id === id);
-    setRecipe(selectedRecipe);
   }, [id]);
 
   // Function to navigate between recipes

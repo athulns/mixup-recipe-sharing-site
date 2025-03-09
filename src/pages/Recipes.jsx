@@ -1,12 +1,20 @@
 import RecipeCard from "../components/RecipeCard";
 import { useEffect, useState } from "react";
-import { getRecipes } from "../data/recipes";
+import axios from "axios"; // Import Axios
+
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    setRecipes(getRecipes(false)); // Load recipes from localStorage
+    axios.get('https://backend-1-yaoz.onrender.com/recipes')
+      .then(response => {
+        setRecipes(response.data); // Load recipes from backend
+      })
+      .catch(error => {
+        console.error("Error fetching recipes:", error);
+      });
+
   }, []);
 
   return (

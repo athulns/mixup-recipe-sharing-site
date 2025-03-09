@@ -1,13 +1,23 @@
 import { useState } from "react";
 
+import { useState, useEffect } from "react";
+import axios from "axios"; // Import Axios
+
 const Profile = () => {
-  // Example user data (Replace with real user data in the future)
-  const [user] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    bio: "Food lover, home cook, and recipe creator.",
-    avatar: "https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?t=st=1740216266~exp=1740219866~hmac=2e77c7d3f03b71215c5d814547de35b18428223bed19b39905d43a8d247ce551&w=900",
-  });
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    axios.get('https://backend-1-yaoz.onrender.com/profile')
+      .then(response => {
+        setUser(response.data); // Set user data from backend
+      })
+      .catch(error => {
+        console.error("Error fetching profile:", error);
+      });
+  }, []);
+
+
+  if (!user) return <h2 className="text-center mt-5">Loading...</h2>;
 
   return (
     <div className="container mt-4">
@@ -27,6 +37,7 @@ const Profile = () => {
       </div>
     </div>
   );
+
 };
 
 export default Profile;

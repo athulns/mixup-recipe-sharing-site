@@ -1,6 +1,8 @@
 import { useState } from "react";
+import axios from "axios"; // Import Axios
+
 import { useNavigate } from "react-router-dom";
-import { saveRecipe } from "../data/recipes"; // Import saveRecipe function
+
 
 const AddRecipe = () => {
   const [newRecipe, setNewRecipe] = useState({
@@ -32,8 +34,21 @@ const AddRecipe = () => {
       id: Date.now().toString(), // Generate unique ID for the recipe
     };
 
-    // Save to localStorage using the saveRecipe function
-    saveRecipe(formattedRecipe);
+    // Send a POST request to the server
+    axios.post('https://backend-1-yaoz.onrender.com/recipes', formattedRecipe)
+      .then(response => {
+        alert("Recipe added successfully!");
+        // Redirect to the newly added recipe’s detail page
+        navigate(`/recipes/${response.data.id}`);
+      })
+      .catch(error => {
+        alert("Error adding recipe: " + error.message);
+      });
+
+    // alert("Recipe added successfully!");
+    // navigate(`/recipes/${formattedRecipe.id}`);
+
+
 
     alert("Recipe added successfully!");
 
