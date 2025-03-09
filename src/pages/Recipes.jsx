@@ -7,7 +7,7 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    axios.get('https://backend-1-yaoz.onrender.com/recipes')
+    axios.get('https://backend-1-yaoz.onrender.com/api/recipes')
       .then(response => {
         setRecipes(response.data); // Load recipes from backend
       })
